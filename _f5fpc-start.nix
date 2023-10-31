@@ -1,13 +1,19 @@
-{
-  writeShellApplication,
+{ 
+  buildFHSEnv,
   f5fpc,
-}:
+}: 
 
-writeShellApplication {
+buildFHSEnv {
   name = "f5fpc-start";
-  runtimeInputs =  [ f5fpc ];
-  text = ''
-    set +e
+  targetPkgs = _: [ f5fpc ];
+  extraBuildCommands = ''
+    cp -r "${f5fpc}/usr" $out
+  '';
+
+  runScript = ''
+    #!/bin/sh
+    # set -euo pipefail
+
     f5fpc --info > /dev/null
     if [ $? -eq 5 ]; then
       echo "Already connected!"
@@ -25,17 +31,17 @@ writeShellApplication {
     # public: user, host    
     user="ejohnso3"
     host="https://iconnect.global.volvocars.biz" 
-    pass="$(get_secret "$pass_file")"
-    pin="$(get_secret "$pin_file")"
-    read -rp "TOTP: " totp
+    pass="$(get_secret $pass_file)"
+    pin="$(get_secret $pin_file)"
+    read -p "TOTP: " totp
     
-    sudo f5fpc \
+    start=$(f5fpc \
       --start \
       --user "$user" \
       --password "$pin$totp$pass" \
       --host "$host" \
       --nocheck \
-    > /dev/null
+    )
     echo "Operation in progress..."
     
     while :; do
@@ -58,7 +64,7 @@ writeShellApplication {
           ;;
         *)
           echo "Unknown code $last. 5f5pc says:"
-          echo "$output"
+          echo $last
           ;;
       esac
       sleep 2
