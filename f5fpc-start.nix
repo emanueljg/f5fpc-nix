@@ -8,7 +8,7 @@ writeShellApplication {
   runtimeInputs =  [ f5fpc ];
   text = ''
     set +e
-    sudo f5fpc --info > /dev/null
+    f5fpc --info > /dev/null
     if [ $? -eq 5 ]; then
       echo "Already connected!"
       exit 1
@@ -29,7 +29,14 @@ writeShellApplication {
     pin="$(get_secret "$pin_file")"
     read -rp "TOTP: " totp
     
-    sudo -E -- f5fpc --start --user "$user" --password "$pin$totp$pass" --host "$host" --nocheck
+    sudo -- f5fpc \
+      --start \
+      --user "$user" \
+      --password "$pin$totp$pass" \
+      --host "$host" \
+      --nocheck \
+    > /dev/null
+
     echo "Operation in progress..."
     
     while :; do

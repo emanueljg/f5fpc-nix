@@ -26,8 +26,8 @@
         packages = let
           f5fpc = callPackage ./. { };
         in {
-          # default = f5fpc;
-          # inherit f5fpc;
+          default = f5fpc;
+          inherit f5fpc;
           f5fpc-start = callPackage ./f5fpc-start.nix { inherit f5fpc; };
         };
       };
