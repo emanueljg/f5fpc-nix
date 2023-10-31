@@ -3,6 +3,7 @@
 , autoPatchelfHook
 , dpkg
 , buildFHSEnv
+, buildFHSUserEnv
 , lib
 }: 
 
@@ -34,7 +35,7 @@ let
       runHook postInstall
     '';
   };
-in buildFHSEnv {
+in buildFHSUserEnv {
   name = "f5fpc";
   targetPkgs = _: [ pkg ];
   extraBuildCommands = ''
