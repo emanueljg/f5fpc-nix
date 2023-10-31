@@ -29,7 +29,7 @@ writeShellApplication {
     pin="$(get_secret "$pin_file")"
     read -rp "TOTP: " totp
     
-    sudo f5fpc \
+    sudo -- f5fpc \
       --start \
       --user "$user" \
       --password "$pin$totp$pass" \
