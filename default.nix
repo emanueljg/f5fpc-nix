@@ -27,15 +27,11 @@ let
     installPhase = ''
       runHook preInstall
       cp -r . $out
-      # chmod +x "$out/usr/local/lib/F5Networks/f5fpc_x86_64"
-      # chmod +x "$out/usr/local/lib/F5Networks/SSLVPN/svpn_x86_64"
-      # install -m755 -D "usr" $out
       install -m755 -D "usr/local/lib/F5Networks/f5fpc_x86_64" $out/bin/f5fpc
-      # install -m755 -D "usr/local/lib/F5Networks/SSLVPN/svpn_x86_64" $out/bin/svpn
       runHook postInstall
     '';
   };
-in buildFHSUserEnv {
+in buildFHSEnv {
   name = "f5fpc";
   targetPkgs = _: [ pkg ];
   extraBuildCommands = ''
