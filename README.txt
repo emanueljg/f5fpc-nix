@@ -1,5 +1,5 @@
 f5fpc-nix
-----------
+---------
 
 A flake for the F5 VPN Client.
 
