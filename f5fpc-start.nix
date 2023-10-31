@@ -8,7 +8,7 @@ writeShellApplication {
   runtimeInputs =  [ f5fpc ];
   text = ''
     set +e
-    f5fpc --info > /dev/null
+    sudo f5fpc --info > /dev/null
     if [ $? -eq 5 ]; then
       echo "Already connected!"
       exit 1
