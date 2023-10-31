@@ -10,6 +10,9 @@ Run start script:
 Stop f5fpc:
 	nix run github:emanueljg/f5fpc-nix -- --stop
 
+If you don't want to install this flake on your NixOS system (or if you're running a different distro), you can
+very easily create shell aliases for these commands too.
+
 NOTE: If getting the error "bwrap: Can't chdir to <path>: <error>":
   1. cd to a directory you know your own, for example your homedir. Run the program again.
   2. If this doesn't work, make sure your nix invocation runs nixos-unstable and not nixos-23.05.
