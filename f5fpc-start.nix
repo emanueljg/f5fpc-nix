@@ -34,8 +34,7 @@ writeShellApplication {
       --user "$user" \
       --password "$pin$totp$pass" \
       --host "$host" \
-      --nocheck \
-    > /dev/null
+      --nocheck
     echo "Operation in progress..."
     
     while :; do
